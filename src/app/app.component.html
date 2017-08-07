@@ -1,0 +1,46 @@
+<header>
+  <nav class="navbar navbar-default">
+    <a class="navbar-brand" href="#"><img src="../assets/EY-logo-li.png" style="height:50px; margin-top:-15px" /></a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="row">
+    <nav class="navbar">
+      <input class="form-control" type="text" name="search" [(ngModel)]="filter">      
+    </nav>
+    <table class="table">
+      <thead>
+        <tr>
+          <th># of vulnerability</th>
+          <th (click)="sort('gozlem')">Gözlem
+            <span class="glyphicon sort-icon" *ngIf="key =='gozlem'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th (click)="sort('risk')">Risk
+            <span class="glyphicon sort-icon" *ngIf="key =='risk'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th (click)="sort('baglantiNoktasi')">Bağlantı Noktası
+            <span class="glyphicon sort-icon" *ngIf="key =='baglantiNoktasi'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th (click)="sort('gozlemDetayi')">Gözlem Detayı
+            <span class="glyphicon sort-icon" *ngIf="key =='gozlemDetayi'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th (click)="sort('iyilestirmeOnerisi')">İyileştirme Önerisi
+            <span class="glyphicon sort-icon" *ngIf="key =='iyilestirmeOnerisi'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let game of games | orderBy: key : reverse | filter:filter | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+          <td>{{i}}</td>
+          <td>{{game.gozlem}}</td>
+          <td>{{game.risk}}</td>
+          <td>{{game.baglantiNoktasi}}</td>
+          <td>{{game.gozlemDetayi}}</td>
+          <td>{{game.iyilestirmeOnerisi}}</td>
+        </tr>
+      </tbody>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </table>
+  </div>
+</div>
